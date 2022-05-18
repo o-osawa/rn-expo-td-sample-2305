@@ -1,0 +1,143 @@
+import { useState, useRef } from 'react'
+import { StyleSheet, View } from 'react-native';
+
+import { Title, Text, Button } from 'react-native-paper';
+import useInterval from '../hooks/useInterval';
+
+
+const sloatReel = [
+  ["🍉", "🍌", "7️⃣"],
+  ["🍌", "🍉", "7️⃣"],
+  ["7️⃣", "🍉", "🍌"],
+];
+
+
+// スクリーン
+export default function SlotScreen({ navigation }) {
+  const [slot, setSlot] = useState([
+    Math.floor(Math.random() * sloatReel[0].length),
+    Math.floor(Math.random() * sloatReel[1].length),
+    Math.floor(Math.random() * sloatReel[2].length),
+  ]);
+
+  const [slotMove, setSlotMove] = useState([false, false, false]);
+
+  const [point, setPoint] = useState(60);
+  const [result, setResult] = useState(null);
+  const [resultRecodes, setResultRecodes] = useState([]);
+
+
+  const bet = (betPoint) => {
+    setPoint(point - betPoint)
+    setSlotMove([true, true, true])
+  }
+
+  const stop = (slotNum) => {
+    const newSlotMove = [...slotMove]
+    newSlotMove[slotNum] = false
+    setSlotMove(newSlotMove)
+
+    if (!newSlotMove[0] && !newSlotMove[1] && !newSlotMove[2]) {
+      resultPointCheck(newSlotMove);
+    }
+  }
+
+  const resultPointCheck = (newSlotMove) => {
+    let getPoint = 0
+    if (sloatReel[0][slot[0]] === sloatReel[1][slot[1]] &&
+      sloatReel[0][slot[0]] === sloatReel[2][slot[2]]) {
+      if (sloatReel[0][slot[0]] === "7️⃣") {
+        getPoint = 30
+      } else {
+        getPoint = 15
+      }
+    } else if (sloatReel[0][slot[0]] === sloatReel[1][slot[1]] ||
+      sloatReel[0][slot[0]] === sloatReel[2][slot[2]] ||
+      sloatReel[1][slot[1]] === sloatReel[2][slot[2]]
+    ) {
+      getPoint = 1
+    }
+    console.log(sloatReel[0][slot[0]], sloatReel[1][slot[1]], sloatReel[2][slot[2]], getPoint)
+
+    setPoint(point + getPoint)
+    setResult(getPoint)
+    setResultRecodes([getPoint, ...resultRecodes])
+  }
+
+  const reset = () => {
+    setSlotMove([false, false, false])
+    setPoint(60)
+    setResult(null)
+    setResultRecodes([])
+  }
+
+  useInterval(
+    () => {
+      const newSlot = [...slot]
+      if (slotMove[0]) newSlot[0] += 1
+      if (slotMove[1]) newSlot[1] += 1
+      if (slotMove[2]) newSlot[2] += 1
+      if (newSlot[0] >= sloatReel[0].length) newSlot[0] = 0
+      if (newSlot[1] >= sloatReel[1].length) newSlot[1] = 0
+      if (newSlot[2] >= sloatReel[2].length) newSlot[2] = 0
+      setSlot(newSlot)
+    },
+    slotMove[0] || slotMove[1] || slotMove[2] ? 100 : null
+  );
+
+
+
+  // 画面構成
+  return (
+    <View style={styles.container}>
+      <View style={{ marginTop: 20 }}>
+        <Title>スロット</Title>
+        <Text>絵柄を揃えよう{slotMove[0]}</Text>
+      </View>
+      <View style={{ marginTop: 20, width: "100%", flexDirection: "row", justifyContent: "space-around", alignItems: "flex-end" }}>
+        <View style={{ alignItems: "center" }}>
+          <Title>{point}</Title>
+          <Button mode="contained" disabled={slotMove[0] || slotMove[1] || slotMove[2] || point < 3} onPress={() => bet(3)}>3BET</Button>
+        </View>
+
+        <View style={{ alignItems: "center" }}>
+          <Title>{sloatReel[0][slot[0]]}</Title>
+          <Button mode="contained" disabled={!slotMove[0]} onPress={() => stop(0)}>stop</Button>
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <Title>{sloatReel[1][slot[1]]}</Title>
+          <Button mode="contained" disabled={!slotMove[1]} onPress={() => stop(1)}>stop</Button>
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <Title>{sloatReel[2][slot[2]]}</Title>
+          <Button mode="contained" disabled={!slotMove[2]} onPress={() => stop(2)}>stop</Button>
+        </View>
+      </View>
+
+      <View style={{ marginTop: 20 }}>
+        <Title style={{}}>{result !== null ? `${result}ポイント` : ""}</Title>
+      </View>
+
+      <View style={{ marginTop: 20, width: "80%" }}>
+        <Title>記録</Title>
+        <Text>{resultRecodes.join(",")}</Text>
+
+      </View>
+      <View style={{ marginTop: 20 }}>
+        <Button mode="contained" onPress={() => { reset() }}>リセット</Button>
+      </View>
+    </View>
+  );
+}
+
+//　スクリーン設定やスタイルなど
+export const SloatScreenSetting = {
+  title: "スロット",
+  screenName: "slot"
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
+});
