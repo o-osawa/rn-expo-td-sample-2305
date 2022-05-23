@@ -14,7 +14,6 @@ import DiceScreen, {DiceScreenSetting} from '../screens/DiceScreen';
 import SlotScreen, {SloatScreenSetting} from '../screens/SlotScreen';
 import ClockScreen, {ClockScreenSetting} from '../screens/ClockScreen';
 
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 
 export default function Navigation() {
   return (
@@ -24,7 +23,7 @@ export default function Navigation() {
   );
 }
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator();
 function RootNavigator() {
   return (
     <Stack.Navigator>
@@ -33,7 +32,7 @@ function RootNavigator() {
   );
 }
 
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
+const BottomTab = createBottomTabNavigator();
 
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
@@ -83,9 +82,6 @@ function BottomTabNavigator() {
 
 
 
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
+function TabBarIcon(props) {
   return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }
