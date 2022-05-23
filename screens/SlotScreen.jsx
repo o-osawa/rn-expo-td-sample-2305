@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react'
-import { StyleSheet, View } from 'react-native';
+import React, { useState } from 'react'
+import { StyleSheet, View, ScrollView } from 'react-native';
 
 import { Title, Text, Button } from 'react-native-paper';
 import useInterval from '../hooks/useInterval';
@@ -30,6 +30,7 @@ export default function SlotScreen({ navigation }) {
   const bet = (betPoint) => {
     setPoint(point - betPoint)
     setSlotMove([true, true, true])
+    setResult(null)
   }
 
   const stop = (slotNum) => {
@@ -46,17 +47,18 @@ export default function SlotScreen({ navigation }) {
     let getPoint = 0
     if (sloatReel[0][slot[0]] === sloatReel[1][slot[1]] &&
       sloatReel[0][slot[0]] === sloatReel[2][slot[2]]) {
-      if (sloatReel[0][slot[0]] === "7️⃣") {
-        getPoint = 30
-      } else {
-        getPoint = 15
-      }
-    } else if (sloatReel[0][slot[0]] === sloatReel[1][slot[1]] ||
-      sloatReel[0][slot[0]] === sloatReel[2][slot[2]] ||
-      sloatReel[1][slot[1]] === sloatReel[2][slot[2]]
-    ) {
-      getPoint = 1
+      // if (sloatReel[0][slot[0]] === "7️⃣") {
+      //   getPoint = 30
+      // } else {
+      getPoint = 15
+      // }
     }
+    // else if (sloatReel[0][slot[0]] === sloatReel[1][slot[1]] ||
+    //   sloatReel[0][slot[0]] === sloatReel[2][slot[2]] ||
+    //   sloatReel[1][slot[1]] === sloatReel[2][slot[2]]
+    // ) {
+    //   getPoint = 1
+    // }
     console.log(sloatReel[0][slot[0]], sloatReel[1][slot[1]], sloatReel[2][slot[2]], getPoint)
 
     setPoint(point + getPoint)
@@ -71,6 +73,7 @@ export default function SlotScreen({ navigation }) {
     setResultRecodes([])
   }
 
+  //　スロットアニメーション
   useInterval(
     () => {
       const newSlot = [...slot]
@@ -85,17 +88,17 @@ export default function SlotScreen({ navigation }) {
     slotMove[0] || slotMove[1] || slotMove[2] ? 100 : null
   );
 
-
-
   // 画面構成
   return (
-    <View style={styles.container}>
-      <View style={{ marginTop: 20 }}>
-        <Title>スロット</Title>
-        <Text>絵柄を揃えよう{slotMove[0]}</Text>
+    <ScrollView style={styles.container}>
+      <View>
+        <Title>スロットを動かして点数計算しよう</Title>
       </View>
-      <View style={{ marginTop: 20, width: "100%", flexDirection: "row", justifyContent: "space-around", alignItems: "flex-end" }}>
-        <View style={{ alignItems: "center" }}>
+      <View style={{ marginTop: 20 }}>
+        <Text>絵柄を揃えよう</Text>
+      </View>
+      <View style={{ marginTop: 0, flexDirection: "row", justifyContent: "space-around", alignItems: "flex-end" }}>
+        <View style={{ alignItems: "center", marginRight: 10, }}>
           <Title>{point}</Title>
           <Button mode="contained" disabled={slotMove[0] || slotMove[1] || slotMove[2] || point < 3} onPress={() => bet(3)}>3BET</Button>
         </View>
@@ -115,7 +118,7 @@ export default function SlotScreen({ navigation }) {
       </View>
 
       <View style={{ marginTop: 20 }}>
-        <Title style={{}}>{result !== null ? `${result}ポイント` : ""}</Title>
+        <Text style={{}}>{result !== null ? `${result}ポイント` : ""}</Text>
       </View>
 
       <View style={{ marginTop: 20, width: "80%" }}>
@@ -126,7 +129,16 @@ export default function SlotScreen({ navigation }) {
       <View style={{ marginTop: 20 }}>
         <Button mode="contained" onPress={() => { reset() }}>リセット</Button>
       </View>
-    </View>
+
+
+      <View style={{ marginTop: 40, borderTopWidth: 1, borderTopColor: "#999" }} />
+      <View style={{ marginTop: 20 }}>
+        <Title>プログラムチャレンジ</Title>
+        <Text>・得点の入る役を増やそう</Text>
+        <Text>・確率を変えよう</Text>
+        <Text>・ゲームバランスを変えてみよう</Text>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -138,6 +150,6 @@ export const SloatScreenSetting = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    padding: 20
   },
 });

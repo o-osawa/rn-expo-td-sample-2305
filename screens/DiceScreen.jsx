@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { StyleSheet, View } from 'react-native';
+import React, { useState } from 'react'
+import { StyleSheet,View, ScrollView } from 'react-native';
 
 import { Title, Text, Button } from 'react-native-paper';
 
@@ -21,22 +21,25 @@ export default function DiceScreen({ navigation }) {
 
   // 画面構成
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
+      <View>
+        <Title>ランダムでさいころを引こう</Title>
+      </View>
       <View style={{ marginTop: 20 }}>
-        <Title>さいころ🎲</Title>
         <Text>どの目が出るかな？</Text>
+      </View>
+      <View style={{ marginTop: 20 }}>
         <Button mode="contained" onPress={()=>playDice()}>
           サイコロを振る
         </Button>
       </View>
-
-      <View style={{ marginTop: 20 }}>
+      <View style={{ marginTop: 0 ,alignItems: 'center',}}>
         <Text style={{ fontSize: 100 }}>{diceText[dice]}</Text>
       </View>
 
-      <View style={{ marginTop: 20,width:"80%" }}>
+      <View style={{ marginTop: 20 }}>
         <Title>記録</Title>
-        <Text>{diceRecode}</Text>
+        <Text>{diceRecode.join(",")}</Text>
 
       </View>
       <View style={{ marginTop: 20 }}>
@@ -44,7 +47,14 @@ export default function DiceScreen({ navigation }) {
             リセット
         </Button>
       </View>
-    </View>
+
+      <View style={{ marginTop: 40, borderTopWidth: 1, borderTopColor: "#999" }} />
+      <View style={{ marginTop: 20 }}>
+        <Title>プログラムチャレンジ</Title>
+        <Text>・サイコロの目をおみくじに変えよう</Text>
+        <Text>・出てくる確率を変えよう</Text>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -56,6 +66,7 @@ export const DiceScreenSetting = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    padding: 20
   },
 });
+

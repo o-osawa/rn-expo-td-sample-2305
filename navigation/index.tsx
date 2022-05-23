@@ -10,11 +10,9 @@ import useColorScheme from '../hooks/useColorScheme';
 
 import QuizuScreen, {QuizuScreenSetting} from '../screens/QuizScreen';
 import DiceScreen, {DiceScreenSetting} from '../screens/DiceScreen';
-import JankenScreen, {JankenScreenSetting} from '../screens/JankenScreen';
+// import JankenScreen, {JankenScreenSetting} from '../screens/JankenScreen';
 import SlotScreen, {SloatScreenSetting} from '../screens/SlotScreen';
-// import GraphScreen,{GraphScreenSetting} from '../screens/GraphScreen';
-// import UiSampleScreen,{UiSampleScreenSetting} from '../screens/UiSampleScreen';
-// import HomeworkScreen,{HomeworkScreenSetting} from '../screens/HomeworkScreen';
+import ClockScreen, {ClockScreenSetting} from '../screens/ClockScreen';
 
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 
@@ -53,19 +51,19 @@ function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
+        name={ClockScreenSetting.screenName}
+        component={ClockScreen}
+        options={{
+          title: ClockScreenSetting.title,
+          tabBarIcon: ({ color }) => <TabBarIcon name="clock-o" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
         name={DiceScreenSetting.screenName}
         component={DiceScreen}
         options={{
           title: DiceScreenSetting.title,
           tabBarIcon: ({ color }) => <TabBarIcon name="dot-circle-o" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name={JankenScreenSetting.screenName}
-        component={JankenScreen}
-        options={{
-          title: JankenScreenSetting.title,
-          tabBarIcon: ({ color }) => <TabBarIcon name="hand-rock-o" color={color} />,
         }}
       />
       <BottomTab.Screen

@@ -5,9 +5,7 @@ import {
   LineChart,
 } from 'react-native-chart-kit';
 
-import { RootTabScreenProps,ScreenSettings } from '../types';
-
-export default function GraphScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function GraphScreen({ navigation }) {
   const [graphDataState, setGraphDataState] = useState([])
   
   //　初回のデータ
@@ -16,10 +14,10 @@ export default function GraphScreen({ navigation }: RootTabScreenProps<'TabOne'>
   },[])
 
   //　配列に計算結果を入れる
-  const makeData = (makeFunc:Function,xmin:number,xmax:number,step:number)=>{
+  const makeData = (makeFunc,xmin,xmax,step)=>{
     let data = [];
     for(let x=xmin;x<=xmax;x+=step){
-      const y:number = makeFunc(x);
+      const y = makeFunc(x);
       data.push({x,y})
     }
     return data;
@@ -27,19 +25,19 @@ export default function GraphScreen({ navigation }: RootTabScreenProps<'TabOne'>
   //ボタンのファンクション
   // y=x  -10~10 step:1
   const makeDataX = ()=>{
-    setGraphDataState(makeData((x:number)=>x,-10,10,1))
+    setGraphDataState(makeData((x)=>x,-10,10,1))
   }
   // y=-x*2  -10~10 step:1
   const makeDataX2 = ()=>{
-    setGraphDataState(makeData((x:number)=>-x*2,-10,10,1))
+    setGraphDataState(makeData((x)=>-x*2,-10,10,1))
   }
   // y=-x*x  -10~10 step:1
   const makeDataXX = ()=>{
-    setGraphDataState(makeData((x:number)=>x*x,-10,10,1))
+    setGraphDataState(makeData((x)=>x*x,-10,10,1))
   }
   // y=sin(x°)  0~360 step:30
   const makeDataSinX = ()=>{
-    setGraphDataState(makeData((x:number)=>Math.sin(Math.PI/(180/x)),0,360,30))
+    setGraphDataState(makeData((x)=>Math.sin(Math.PI/(180/x)),0,360,30))
   }
 
 
@@ -50,10 +48,10 @@ export default function GraphScreen({ navigation }: RootTabScreenProps<'TabOne'>
       <Text>いろんなグラフを表示しよう</Text>
       <LineChart
         data={{
-          labels: graphDataState.map(obj => obj.x) as [],
+          labels: graphDataState.map(obj => obj.x),
           datasets: [
             {
-              data: graphDataState.map(obj => obj.y) as [],
+              data: graphDataState.map(obj => obj.y),
             },
           ],
         }}
