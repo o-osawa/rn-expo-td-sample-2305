@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet,View, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, ScrollView } from 'react-native';
 
 import { Title, Text } from 'react-native-paper';
 import useInterval from '../hooks/useInterval';
@@ -11,8 +11,7 @@ export default function ClockScreen({ navigation }) {
   //時間更新アニメーション
   useInterval(() => {
     setDate(new Date());
-  },
-    200);
+  }, 200);
 
   //時間取得
   let hours = date.getHours(); // 0~23
@@ -27,15 +26,19 @@ export default function ClockScreen({ navigation }) {
   // 画面構成
   return (
     <ScrollView style={styles.container}>
-      <View style={{ }}>
+      <View style={{}}>
         <Title>時間を表示しよう</Title>
       </View>
       <View style={{ marginTop: 20 }}>
         {/* <Text style={{ fontSize: 40 }}>{year}/{month}/{day}</Text>*/}
-        <Text style={{ fontSize: 60 }}>{hours}:{minutes}:{seconds}</Text>
+        <Text style={{ fontSize: 60 }}>
+          {hours}:{minutes}:{seconds}
+        </Text>
       </View>
 
-      <View style={{ marginTop: 40, borderTopWidth: 1, borderTopColor: "#999" }} />
+      <View
+        style={{ marginTop: 40, borderTopWidth: 1, borderTopColor: '#999' }}
+      />
       <View style={{ marginTop: 20 }}>
         <Title>プログラムチャレンジ</Title>
         <Text>・年月日を表示しよう</Text>
@@ -48,12 +51,12 @@ export default function ClockScreen({ navigation }) {
 
 //　スクリーン設定やスタイルなど
 export const ClockScreenSetting = {
-  title: "時計",
-  screenName: "watch"
-}
+  title: '時計',
+  screenName: 'watch',
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20
+    padding: 20,
   },
 });

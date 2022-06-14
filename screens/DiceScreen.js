@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { StyleSheet,View, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, ScrollView } from 'react-native';
 
 import { Title, Text, Button } from 'react-native-paper';
 
@@ -10,14 +10,14 @@ export default function DiceScreen({ navigation }) {
   //さいころの目の記録の変数
   const [diceRecode, setDiceRecode] = useState([]);
   //さいころの表示テキスト
-  const diceText = ["", "①", "②", "③", "④", "⑤", "⑥"];
+  const diceText = ['', '①', '②', '③', '④', '⑤', '⑥'];
 
   //サイコロをふる
   const playDice = () => {
-    const dice = Math.floor(Math.random() * (diceText.length-1))+1;
+    const dice = Math.floor(Math.random() * (diceText.length - 1)) + 1;
     setDice(dice);
     setDiceRecode([diceText[dice], ...diceRecode]);
-  }
+  };
 
   // 画面構成
   return (
@@ -29,26 +29,31 @@ export default function DiceScreen({ navigation }) {
         <Text>どの目が出るかな？</Text>
       </View>
       <View style={{ marginTop: 20 }}>
-        <Button mode="contained" onPress={()=>playDice()}>
+        <Button mode="contained" onPress={() => playDice()}>
           サイコロを振る
         </Button>
       </View>
-      <View style={{ marginTop: 0 ,alignItems: 'center',}}>
+      <View style={{ marginTop: 0, alignItems: 'center' }}>
         <Text style={{ fontSize: 100 }}>{diceText[dice]}</Text>
       </View>
 
       <View style={{ marginTop: 20 }}>
         <Title>記録</Title>
-        <Text>{diceRecode.join(",")}</Text>
-
+        <Text>{diceRecode.join(',')}</Text>
       </View>
       <View style={{ marginTop: 20 }}>
-        <Button mode="contained" onPress={()=>{setDiceRecode([])}}>
-            リセット
+        <Button
+          mode="contained"
+          onPress={() => {
+            setDiceRecode([]);
+          }}>
+          リセット
         </Button>
       </View>
 
-      <View style={{ marginTop: 40, borderTopWidth: 1, borderTopColor: "#999" }} />
+      <View
+        style={{ marginTop: 40, borderTopWidth: 1, borderTopColor: '#999' }}
+      />
       <View style={{ marginTop: 20 }}>
         <Title>プログラムチャレンジ</Title>
         <Text>・サイコロの目をおみくじに変えよう</Text>
@@ -60,13 +65,12 @@ export default function DiceScreen({ navigation }) {
 
 //　スクリーン設定やスタイルなど
 export const DiceScreenSetting = {
-  title: "さいころ",
-  screenName: "dice"
-}
+  title: 'さいころ',
+  screenName: 'dice',
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20
+    padding: 20,
   },
 });
-

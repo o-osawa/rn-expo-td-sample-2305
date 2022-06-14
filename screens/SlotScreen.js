@@ -5,7 +5,7 @@ import { Title, Text, Button } from 'react-native-paper';
 import useInterval from '../hooks/useInterval';
 
 const sloatReel = [
-  ['🍉',  '7️⃣'],
+  ['🍉', '7️⃣'],
   ['🍉', '7️⃣'],
   ['7️⃣', '🍉'],
 ];
