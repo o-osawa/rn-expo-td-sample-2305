@@ -10,11 +10,11 @@ export default function DiceScreen({ navigation }) {
   //さいころの目の記録の変数
   const [diceRecode, setDiceRecode] = useState([]);
   //さいころの表示テキスト
-  const diceText = ["", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣"];
+  const diceText = ["", "①", "②", "③", "④", "⑤", "⑥"];
 
   //サイコロをふる
   const playDice = () => {
-    const dice = Math.floor(Math.random() * 6) + 1;
+    const dice = Math.floor(Math.random() * (diceText.length-1))+1;
     setDice(dice);
     setDiceRecode([diceText[dice], ...diceRecode]);
   }
@@ -52,7 +52,7 @@ export default function DiceScreen({ navigation }) {
       <View style={{ marginTop: 20 }}>
         <Title>プログラムチャレンジ</Title>
         <Text>・サイコロの目をおみくじに変えよう</Text>
-        <Text>・出てくる確率を変えよう</Text>
+        <Text>腕試し）出てくる確率を変えよう</Text>
       </View>
     </ScrollView>
   );
