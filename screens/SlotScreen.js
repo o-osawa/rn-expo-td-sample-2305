@@ -58,7 +58,6 @@ export default function SlotScreen({ navigation }) {
         getPoint = 15;
         // playSlotMusicSound(SoundFiles.successSound1); //あたりサウンド successSound1, successSound2, successSound3
       }
-
       setPoint(point + getPoint);
       setResult(getPoint);
       setResultRecodes([getPoint, ...resultRecodes]);
@@ -117,43 +116,53 @@ export default function SlotScreen({ navigation }) {
       </View>
       <View
         style={{
-          marginTop: 0,
+          marginTop: 20,
           flexDirection: 'row',
           justifyContent: 'space-around',
           alignItems: 'flex-end',
         }}>
+        {/*ポイントと開始  ----------------------*/}
         <View style={{ alignItems: 'center', marginRight: 10 }}>
           <Title>{point}</Title>
           <Button
             mode="contained"
+            color="gold"
             disabled={slotMove[0] || slotMove[1] || slotMove[2] || point < 3}
             onPress={() => bet(3)}>
-            3BET
+            START
           </Button>
         </View>
 
+        {/*スロット1 ----------------------*/}
         <View style={{ alignItems: 'center' }}>
-          <Title>{sloatReel[0][slot[0]]}</Title>
+          <Text style={{ fontSize: 40 }}>{sloatReel[0][slot[0]]}</Text>
           <Button
             mode="contained"
+            color="gold"
             disabled={!slotMove[0]}
             onPress={() => stop(0)}>
             stop
           </Button>
         </View>
+
+        {/*スロット2 ----------------------*/}
         <View style={{ alignItems: 'center' }}>
-          <Title>{sloatReel[1][slot[1]]}</Title>
+          <Text style={{ fontSize: 40 }}>{sloatReel[1][slot[1]]}</Text>
           <Button
             mode="contained"
+            color="gold"
             disabled={!slotMove[1]}
             onPress={() => stop(1)}>
             stop
           </Button>
         </View>
+
+        {/*スロット3 ----------------------*/}
         <View style={{ alignItems: 'center' }}>
-          <Title>{sloatReel[2][slot[2]]}</Title>
+          <Text style={{ fontSize: 40 }}>{sloatReel[2][slot[2]]}</Text>
           <Button
             mode="contained"
+            color="gold"
             disabled={!slotMove[2]}
             onPress={() => stop(2)}>
             stop
@@ -186,7 +195,7 @@ export default function SlotScreen({ navigation }) {
         <Title>プログラムチャレンジ</Title>
         <Text>・絵柄が揃った時にあたり音を流す</Text>
         <Text>腕試し）同じ絵柄２つ揃った時にドラムロールを流す</Text>
-        <Text>腕試し）揃った時の絵柄で音を変える</Text>
+        <Text>腕試し）揃った時の絵柄で音を変えてみよう</Text>
         <Text>腕試し）スロットの絵柄を増やしみよう</Text>
         <Text>腕試し）確率を変えよう</Text>
         <Text>腕試し）ゲームバランスを変えてみよう</Text>

@@ -42,6 +42,7 @@ export default function DiceScreen({ navigation }) {
         <Text>どの目が出るかな？</Text>
       </View>
       <View style={{ marginTop: 20 }}>
+        {/*　ボタン ----------------------*/}
         <Button
           mode="contained"
           style={{ backgroundColor: 'lavender' }}
@@ -50,7 +51,9 @@ export default function DiceScreen({ navigation }) {
           サイコロを振る
         </Button>
       </View>
-      <View style={{ marginTop: 0, alignItems: 'center' }}>
+
+      {/*結果表示 ----------------------*/}
+      <View style={{ marginTop: 10, alignItems: 'center' }}>
         <Text style={{ fontSize: 100, color: 'lightseagreen' }}>
           {diceText[dice]}
         </Text>

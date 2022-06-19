@@ -79,6 +79,7 @@ export default function QuizScreen({ navigation }) {
         </Button>
       </View>
 
+      {/*　結果表示 ----------------------*/}
       <View style={{ marginTop: 20 }}>
         <Title>{answer.title}</Title>
         <Text>{answer.memo}</Text>
